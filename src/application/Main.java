@@ -15,10 +15,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/AccountsWindow.fxml"));
+			VBox root = loader.load(new FileInputStream("src/application/HomeWindow.fxml"));
 
 			//BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,700,400);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Finance App");
 			primaryStage.show();
