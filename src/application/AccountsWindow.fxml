@@ -1,8 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetController">
+   <children>
+      <HBox prefHeight="25.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Budget">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin></Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Current Balance">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="80.0" right="10.0" top="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font></Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="35.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="budgetTextfield" prefWidth="75.0">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+               </HBox.margin></TextField>
+            <Label fx:id= "currentBalance" alignment="CENTER" contentDisplay="CENTER" text="" textFill = "GREEN">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="80.0" right="10.0" top="0.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font></Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="75.0" prefWidth="200.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#enterBudget" text="Enter Budget">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+               </HBox.margin></Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Transactions">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="185.0" right="10.0" top="0.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
+         </children>
+      </HBox>
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Purchase History">
+         <VBox.margin>
+            <Insets bottom="10.0" left="145.0" right="10.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
+   </children>
 </VBox>
-
