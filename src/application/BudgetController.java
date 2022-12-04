@@ -13,6 +13,12 @@ public class BudgetController {
     @FXML
     private Label currentBalance;
 
+    //@FXML
+    //void getExpenses(ActionEvent EnterExpensesEvent) 
+    
+    //@FXML
+    //void getPurchaseList(ActionEvent ShowPurchaseListEvent)
+    
     @FXML
     void enterBudget(ActionEvent event) {
     	double currentBal = 0.0;

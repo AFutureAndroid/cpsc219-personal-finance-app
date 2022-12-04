@@ -35,7 +35,7 @@
                </HBox.margin></TextField>
             <Label fx:id= "currentBalance" alignment="CENTER" contentDisplay="CENTER" text="" textFill = "GREEN">
                <HBox.margin>
-                  <Insets bottom="10.0" left="80.0" right="10.0" top="0.0" />
+                  <Insets bottom="10.0" left="75.0" right="10.0" top="0.0" />
                </HBox.margin>
                <font>
                   <Font name="Calibri" size="16.0" />

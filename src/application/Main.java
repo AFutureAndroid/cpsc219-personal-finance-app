@@ -18,7 +18,7 @@ public class Main extends Application {
 			//BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,400,250);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Budgeting App");
+			primaryStage.setTitle("Budgeting Application");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
