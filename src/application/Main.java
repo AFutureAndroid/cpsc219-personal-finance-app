@@ -17,6 +17,7 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/HomeWindow.fxml"));
 
+
 			//BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,700,400);
 			primaryStage.setScene(scene);
