@@ -46,6 +46,7 @@ public class BudgetController {
     	double money = Double.parseDouble(budget.getText());
     	currentBal = money;
     	bdgDisplay.setText(String.format("$%.2f", currentBal));
+    	balDisplay.setText(String.format("$%.2f", currentBal));
     }
 
 }
