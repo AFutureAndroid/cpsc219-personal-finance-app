@@ -4,9 +4,12 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class BudgetController {
@@ -34,9 +37,18 @@ public class BudgetController {
     private TextField budget;
 
     @FXML
-    void getExpHistory(ActionEvent event) {
-    	System.out.println("button");
-    	Scene expHistoryScene = new Scene(new Label("Expenese History"));
+    void getExpHistory(ActionEvent expHistoryEvent) {
+    	Scene mainScene = applicationStage.getScene();
+    	
+    	VBox expHistoryBox = new VBox();
+    	Label expHistoryLabel = new Label("Expenese History");
+    	
+    	Button returnButton = new Button("Go Back");
+    	returnButton.setOnAction(returnEvent -> applicationStage.setScene(mainScene));
+    	
+    	
+    	expHistoryBox.getChildren().addAll(expHistoryLabel, returnButton);
+    	Scene expHistoryScene = new Scene(expHistoryBox);
     	applicationStage.setScene(expHistoryScene);
     }
     
