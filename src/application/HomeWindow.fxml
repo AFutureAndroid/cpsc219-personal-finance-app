@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetController">
    <children>
       <Label text="BUDGET APP">
          <font>
@@ -30,7 +30,7 @@
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></TextField>
-                  <Button mnemonicParsing="false" text="Calculate" />
+                  <Button mnemonicParsing="false" onAction="#enterBudget" text="Calculate" />
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
