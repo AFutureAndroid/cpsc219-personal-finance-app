@@ -39,6 +39,15 @@ public class WindowController {
     	Scene expHistoryScene = new Scene(new Label("Expenese History"));
     	applicationStage.setScene(expHistoryScene);
     }
+    
+    @FXML
+    void enterBudget(ActionEvent event) {
+    	double currentBal = 0.0;
+    	double money = Double.parseDouble(budget.getText());
+    	currentBal = money;
+    	bdgDisplay.setText(String.format("$%.2f", currentBal));
+    	balDisplay.setText(String.format("$%.2f", currentBal));
+    }
 
 }
 
