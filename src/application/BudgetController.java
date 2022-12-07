@@ -91,8 +91,16 @@ public class BudgetController {
     	VBox expHistoryBox = new VBox();
     	expHistoryBox.setPrefSize(300, 100);
 
-    	Label expHistoryLabel = new Label("Expenese History");
-    	expHistoryBox.getChildren().add(expHistoryLabel);
+    	Label expHistoryLabel = new Label("----------------Expense History----------------");
+    	
+    	HBox description = new HBox();
+    	Label typeLabel = new Label("Expense Type" + "       ");
+    	Label noteLabel = new Label("Note" + "       ");
+    	Label amountLabel = new Label("Expense Amount" + "       ");
+    	description.getChildren().addAll(typeLabel, noteLabel, amountLabel);
+    	
+    	Label separation = new Label("-------------------------------------------------");
+    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, separation);
     	
     	int i = 0;
     	int numOfEntries = expHistory.size();  	
