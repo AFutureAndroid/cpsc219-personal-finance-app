@@ -1,33 +1,59 @@
 package application;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-
 public class Calculator {
+	private double budgetValue;
+	private double expenseValue;
+	private double balValue;
 	
-	@FXML
-	private Label bdgDisplay;
+	public Calculator(double bdg, double exp) {
+		budgetValue = bdg;
+		expenseValue = exp;
+	}
 	
-	@FXML
-	private Label expDisplay;
+	public Calculator(Calculator toCopy) {
+		this.budgetValue = toCopy.budgetValue;
+		this.expenseValue = toCopy.expenseValue;
+	}
 	
-	@FXML
-	private Label balDisplay;
+	public double getCurrentBalance() {
+		balValue = budgetValue - expenseValue;
+		return balValue;		
+	}
 	
-	@FXML
-	private ChoiceBox<String> expType;
+	public double getExpense() {
+		return expenseValue - budgetValue;
+	}
 	
-	@FXML
-	private TextField budget;
 	
-	@FXML
-	private TextField note;
-	
-	@FXML
-	private TextField expAmount;
-	
-
+	String setValue(String valueAsString) {
+		String errorMessage = "";
+		int index = 0;
+		int decPoint = 0;
+		boolean validValue = true;
+		
+		for (char c : valueAsString.toCharArray()) {
+			if (c == '.' && decPoint == 0 && index != 0) {
+				decPoint++;
+			}
+			else if (c == '.' && decPoint > 0) {
+				validValue = false;
+				errorMessage = "This is not a valid input, should be a value greater than 0";
+			}
+			else if (!Character.isDigit(c)) {
+				validValue = false;
+				errorMessage = "The input: " + c + " is invalid. Only use numbers.";
+			}
+			index++;
+		}
+		
+		if (validValue) {
+			budgetValue = Double.parseDouble(valueAsString);
+		}
+		if (budgetValue < 0) {
+			errorMessage = String.format("Expense value should not be less than 0." + 
+			"Invalid input: %.02f", expenseValue);
+			budgetValue = 0;
+		}
+		return errorMessage;		
+	}
 }
