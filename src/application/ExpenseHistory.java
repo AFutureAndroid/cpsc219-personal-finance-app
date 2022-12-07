@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
+
 public class ExpenseHistory {
 	private ArrayList <ExpenseEntry> expTable;
 	
@@ -14,6 +15,7 @@ public class ExpenseHistory {
 		expTable.add(entry);
 		
 	}
+	
 	
 	public ArrayList <ExpenseEntry> getExpTable() {
 		return this.expTable;

@@ -3,6 +3,8 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -13,10 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
+
 
 public class BudgetController {
 	Stage applicationStage;
@@ -62,6 +67,8 @@ public class BudgetController {
     	balDisplay.setText(String.format("$%.2f", currentBal));
     }
     
+    
+    
     @FXML
     void addExpense(ActionEvent addExpEvent) {
     	String t = expType.getValue();
@@ -85,11 +92,14 @@ public class BudgetController {
     	System.out.println("Entry: " + expEntry.getExpType() + "\t" + expEntry.getExpNote() + "\t" + expEntry.getExpAmount());
     }
     
+        
     @FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
     	Scene mainScene = applicationStage.getScene();
     	
-    	historyEntry = new ExpenseHistory();
+    	if (historyEntry == null) {
+    		historyEntry = new ExpenseHistory();
+    	}
     	historyEntry.addEntry(expEntry);
     	
     	
@@ -103,16 +113,33 @@ public class BudgetController {
     	Label noteLabel = new Label("Note" + "       ");
     	Label amountLabel = new Label("Expense Amount" + "       ");
     	
-    	Label entry = new Label(historyEntry.getExpTable().get(0).getEntry());
+    	//Label entry = new Label(historyEntry.getExpTable().get(0).getEntry());
+    	
+    	ObservableList<ExpenseEntry> toShow = FXCollections.observableList(historyEntry.getExpTable());
+    	ListView<ExpenseEntry> items = new ListView<ExpenseEntry>(toShow);
+    	
+    	System.out.print(historyEntry.getExpTable());
+    	
+    	items.setCellFactory(lv -> new ListCell<ExpenseEntry>() {
+    	    @Override
+    	    public void updateItem(ExpenseEntry item, boolean empty) {
+    	        super.updateItem(item, empty);
+    	        if (empty) {
+    	            setText("");
+    	        } else {
+    	            String text = item.getEntry(); // get text from item
+    	            setText(text);
+    	        }
+    	    }
+    	});
     	
     	description.getChildren().addAll(typeLabel, noteLabel, amountLabel);
-    	
     	
     	
     	Button returnButton = new Button("Go Back");
     	returnButton.setOnAction(returnEvent -> applicationStage.setScene(mainScene));
     	
-    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, entry, returnButton);
+    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, items, returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
     	applicationStage.setScene(expHistoryScene);
     }
