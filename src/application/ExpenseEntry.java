@@ -1,37 +1,43 @@
 package application;
 
-public class ExpenseEntry {
-	private String expType;
-	private String expNote;
-	private String expAmount;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 
-	public ExpenseEntry(String type, String note, String amount) {
+public class ExpenseEntry {
+	private ChoiceBox<String> expType;
+	private TextField expNote;
+	private TextField expAmount;
+
+	public ExpenseEntry(ChoiceBox<String> type, TextField note, TextField amount) {
 		expType = type;
 		expNote = note;
 		expAmount = amount;
 	}
 
-	public String getExpType() {
+	
+	
+	
+	public ChoiceBox<String> getExpType() {
 		return expType;
 	}
 
-	public void setExpType(String expType) {
+	public void setExpType(ChoiceBox<String> expType) {
 		this.expType = expType;
 	}
 
-	public String getExpNote() {
+	public TextField getExpNote() {
 		return expNote;
 	}
 
-	public void setExpNote(String expNote) {
+	public void setExpNote(TextField expNote) {
 		this.expNote = expNote;
 	}
 
-	public String getExpAmount() {
+	public TextField getExpAmount() {
 		return expAmount;
 	}
 
-	public void setExpAmount(String expAmount) {
+	public void setExpAmount(TextField expAmount) {
 		this.expAmount = expAmount;
 	}
 
