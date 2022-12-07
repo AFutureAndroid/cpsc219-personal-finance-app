@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class BudgetController {
+	double initialValue;
 	Stage applicationStage;
 
     @FXML
@@ -32,6 +33,9 @@ public class BudgetController {
 
     @FXML
     private TextField budget;
+    
+    @FXML
+    private Label budgetErrorLabel;
 
     @FXML
     void getExpHistory(ActionEvent event) {
@@ -41,13 +45,22 @@ public class BudgetController {
     }
     
     @FXML
-    void enterBudget(ActionEvent event) {
-    	double currentBal = 0.0;
-    	double money = Double.parseDouble(budget.getText());
-    	currentBal = money;
-    	bdgDisplay.setText(String.format("$%.2f", currentBal));
-    	balDisplay.setText(String.format("$%.2f", currentBal));
+    void enterBudget(ActionEvent event) { // Sets the budget
+    	budgetErrorLabel.setText("");
+    	double budgetValue = 0.0;
+    	String budgetInput = budget.getText();
+    	
+    	Calculator myBudget = new Calculator(budgetValue, 0);
+    	String errorMessage = myBudget.setValue(budgetInput);
+    	budgetErrorLabel.setText(errorMessage);
+    	double newBudget = myBudget.budgetValue;
+    	
+    	budgetValue = Double.parseDouble(budgetInput);
+    	bdgDisplay.setText(String.format("$%.2f", newBudget));
     }
-
+    @FXML 
+    void getCurrentBalance(ActionEvent event) {
+    	
+    }
 }
 

@@ -36,6 +36,8 @@
                <padding>
                   <Insets left="20.0" right="20.0" />
                </padding>
+               <Label fx:id = "budgetErrorLabel" text = "" textFill = "RED">
+               </Label>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
