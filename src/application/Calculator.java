@@ -1,18 +1,29 @@
 package application;
 
 public class Calculator {
-	double budgetValue;
+	private double budgetValue;
 	private double expenseValue;
+	private double balValue;
 	
 	public Calculator(double bdg, double exp) {
 		budgetValue = bdg;
 		expenseValue = exp;
 	}
 	
-	
-	double getCurrentBalance() {
-		return budgetValue - expenseValue;		
+	public Calculator(Calculator toCopy) {
+		this.budgetValue = toCopy.budgetValue;
+		this.expenseValue = toCopy.expenseValue;
 	}
+	
+	public double getCurrentBalance() {
+		balValue = budgetValue - expenseValue;
+		return balValue;		
+	}
+	
+	public double getExpense() {
+		return expenseValue - budgetValue;
+	}
+	
 	
 	String setValue(String valueAsString) {
 		String errorMessage = "";

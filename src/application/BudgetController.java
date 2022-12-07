@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -10,7 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class BudgetController {
-	double initialValue;
+	private double initialInput;
+	private double expenseInput;
 	Stage applicationStage;
 
     @FXML
@@ -36,6 +39,9 @@ public class BudgetController {
     
     @FXML
     private Label budgetErrorLabel;
+    
+    @FXML
+    private Label expenseErrorLabel;
 
     @FXML
     void getExpHistory(ActionEvent event) {
@@ -47,20 +53,36 @@ public class BudgetController {
     @FXML
     void enterBudget(ActionEvent event) { // Sets the budget
     	budgetErrorLabel.setText("");
-    	double budgetValue = 0.0;
-    	String budgetInput = budget.getText();
+
+    	Calculator myBudget = new Calculator(0, 0);
+    	budgetErrorLabel.setText(myBudget.setValue(budget.getText()));    	
     	
-    	Calculator myBudget = new Calculator(budgetValue, 0);
-    	String errorMessage = myBudget.setValue(budgetInput);
-    	budgetErrorLabel.setText(errorMessage);
-    	double newBudget = myBudget.budgetValue;
+    	double budgetVal = myBudget.getCurrentBalance();    	
     	
-    	budgetValue = Double.parseDouble(budgetInput);
-    	bdgDisplay.setText(String.format("$%.2f", newBudget));
+    	bdgDisplay.setText(String.format("$%.2f", budgetVal));
+    	balDisplay.setText(String.format("$%.2f", budgetVal));
     }
+    
+    @FXML
+    void enterExpense(ActionEvent event) {
+    	expenseInput = 0;
+    }
+    
     @FXML 
-    void getCurrentBalance(ActionEvent event) {
+    void calculateCurrentBalance(ActionEvent event) {
+    	expenseErrorLabel.setText("");
+    	initialInput = 0;
+    	//boolean noErrors = true;
     	
+    	Calculator currentBal = new Calculator(0, 0);
+    	Calculator currentExp = new Calculator(0, 0);
+    	expenseErrorLabel.setText(currentExp.setValue(expAmount.getText()));
+    	
+    	budgetErrorLabel.setText(currentBal.setValue(budget.getText()));  
+    	double updBal = currentBal.getCurrentBalance() + currentExp.getExpense();
+    	double updExp = currentExp.getExpense();
+    	balDisplay.setText(String.format("$%.2f", updBal));
+    	expDisplay.setText(String.format("$%.2f", updExp));
     }
 }
 
