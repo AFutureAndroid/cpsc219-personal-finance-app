@@ -104,7 +104,14 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="expType" prefWidth="150.0" />
+                  <ChoiceBox fx:id="expType" prefWidth="150.0" >
+                    	<String fx:value="Food"/>
+                  	  	<String fx:value="Groceries"/>  
+                  	  	<String fx:value="Transport"/>
+                  	  	<String fx:value="School"/>
+                  	  	<String fx:value="Rent"/>
+                  	  	<String fx:value="Entertainment"/>   
+                  </ChoiceBox>
                   <Label text="Notes">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -122,6 +129,7 @@
                      </VBox.margin></TextField>
                   <Button mnemonicParsing="false" onAction = "#calculateCurrentBalance" text="Add Expense" />
                   <Label fx:id = "expenseErrorLabel" text = "" textFill = "RED" />
+
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
@@ -129,6 +137,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="125.0">
                <children>
+                  <Button mnemonicParsing="false" onAction="#createHistory" text="Create History" />
                   <Button mnemonicParsing="false" onAction="#getExpHistory" text="Expense History" />
                </children>
             </VBox>
@@ -136,6 +145,21 @@
          <opaqueInsets>
             <Insets bottom="300.0" />
          </opaqueInsets>
+         <VBox prefHeight="200.0" prefWidth="400.0">
+            <children>
+            	<Label fx:id="system" text="">
+             		<font>
+               		<Font name="System Bold" size="12.0" />
+             		</font>
+          		</Label>
+          		<Label fx:id="expAdded" text="">
+             		<font>
+                	<Font name="System Bold" size="12.0" />
+             		</font>
+          		</Label>
+            </children>
+         </VBox>
+          
       </HBox>
    </children>
 </VBox>
