@@ -44,11 +44,11 @@ public class BudgetController {
     
     private ExpenseEntry expEntry;
     
-	private ExpenseHistory expTable;
+	private ExpenseHistory historyEntry;
     
 
 //	BudgetController(){
-//		expEntry = new ExpenseEntry(expType, note, expAmount);
+//		expEntry = new ExpenseEntry();
 //		expTable = new ExpenseHistory();
 //	}
 	
@@ -65,18 +65,33 @@ public class BudgetController {
     @FXML
     void addExpense(ActionEvent addExpEvent) {
     	String t = expType.getValue();
+//    	if (t == null) {
+//    		System.out.println("this is null");
+//    	} else {
+//    		System.out.println("this is not null");
+//    		System.out.println("t = " + t);
+//    	}
     	String n = note.getText();
     	String a = expAmount.getText();
-    	
-    	
+    	expEntry = new ExpenseEntry(t, n, a);
+    	expEntry.setExpType(t);
+    	expEntry.setExpNote(n);
+    	expEntry.setExpAmount(a);
+    	//expEntry.setExpAmount(expAmount.getText());
+//    	expEntry.setExpNote(n);
+//    	expEntry.setExpType(t);
     	    	
-    	System.out.println("Entry: " + t + "\t" + n + "\t" + a);
-    	System.out.println(expEntry);
+//    	System.out.println("Entry: " + t + "\t" + n + "\t" + a);
+    	System.out.println("Entry: " + expEntry.getExpType() + "\t" + expEntry.getExpNote() + "\t" + expEntry.getExpAmount());
     }
     
     @FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
     	Scene mainScene = applicationStage.getScene();
+    	
+    	historyEntry = new ExpenseHistory();
+    	historyEntry.addEntry(expEntry);
+    	
     	
     	VBox expHistoryBox = new VBox();
     	expHistoryBox.setPrefSize(300, 100);
@@ -87,17 +102,20 @@ public class BudgetController {
     	Label typeLabel = new Label("Expense Type" + "       ");
     	Label noteLabel = new Label("Note" + "       ");
     	Label amountLabel = new Label("Expense Amount" + "       ");
+    	
+    	Label entry = new Label(historyEntry.getExpTable().get(0).getEntry());
+    	
     	description.getChildren().addAll(typeLabel, noteLabel, amountLabel);
+    	
+    	
     	
     	Button returnButton = new Button("Go Back");
     	returnButton.setOnAction(returnEvent -> applicationStage.setScene(mainScene));
     	
-    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, returnButton);
+    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, entry, returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
     	applicationStage.setScene(expHistoryScene);
     }
     
-//    e.setType()
-
 }
 

@@ -15,5 +15,9 @@ public class ExpenseHistory {
 		
 	}
 	
+	public ArrayList <ExpenseEntry> getExpTable() {
+		return this.expTable;
+	}
+	
 	
 }
