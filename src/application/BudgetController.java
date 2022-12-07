@@ -28,13 +28,23 @@ public class BudgetController {
     private Label balDisplay;
 
     @FXML
-    private ChoiceBox<?> expType;
+    private ChoiceBox<String> expType;
 
     @FXML
     private Label expDisplay;
 
     @FXML
     private TextField budget;
+    
+    private ExpenseEntry exp;
+    
+//    private ExpEntry e;
+//    private ExpHis h;
+//    
+//    BudgetController() {
+//    	e = new ExpEntry();
+//    	h = new ExpHis();
+//    }
 
     @FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
@@ -53,13 +63,24 @@ public class BudgetController {
     }
     
     @FXML
-    void enterBudget(ActionEvent event) {
+    void enterBudget(ActionEvent bdgEnterEvent) {
     	double currentBal = 0.0;
     	double money = Double.parseDouble(budget.getText());
     	currentBal = money;
     	bdgDisplay.setText(String.format("$%.2f", currentBal));
     	balDisplay.setText(String.format("$%.2f", currentBal));
     }
+    
+    @FXML
+    void addExpense(ActionEvent addExpEvent) {
+    	String t = expType.getValue();
+    	String n = note.getText();
+    	String a = expAmount.getText();
+    	
+    	System.out.println("Entry: " + t + "\t" + n + "\t" + a);
+    }
+    
+//    e.setType()
 
 }
 
