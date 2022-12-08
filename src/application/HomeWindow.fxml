@@ -31,7 +31,7 @@
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></TextField>
-                  <Button mnemonicParsing="false" onAction="#enterBudget" text="Calculate" />
+                  <Button mnemonicParsing="false" onAction="#enterBudget" text="Enter" />
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
@@ -39,6 +39,11 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+               <Label fx:id="bdgErrorLabel" text="">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Label>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="125.0">
                <children>
@@ -132,8 +137,7 @@
                </padding>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="125.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#createHistory" text="Create History" />
+               <children> 
                   <Button mnemonicParsing="false" onAction="#getExpHistory" text="Expense History" />
                </children>
             </VBox>

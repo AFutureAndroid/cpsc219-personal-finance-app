@@ -28,12 +28,12 @@ public class BudgetController {
 
     @FXML
     private Label balDisplay;
+    
+    @FXML
+    private Label expDisplay;
 
     @FXML
     private ChoiceBox<String> expType;
-
-    @FXML
-    private Label expDisplay;
 
     @FXML
     private TextField budget;
@@ -44,39 +44,64 @@ public class BudgetController {
     @FXML
     private Label expAdded;
     
+    @FXML
+    private Label bdgErrorLabel;
+    
     private ExpenseEntry expEntry;
     
     private ArrayList<ExpenseEntry> expHistory;
     
+    private double currentExp = 0.0;
+    
+    private double currentBal = 0.0;
+    
     
     @FXML
     void enterBudget(ActionEvent event) {
-    	double currentBal = 0.0;
     	double money = Double.parseDouble(budget.getText());
     	currentBal = money;
     	bdgDisplay.setText(String.format("$%.2f", currentBal));
     	balDisplay.setText(String.format("$%.2f", currentBal));
-    }
-    
-    @FXML
-    void createHistory(ActionEvent createHisotryEvent) {
+    	
     	expHistory = new ArrayList<ExpenseEntry>();
     	system.setText("Expense History created");
         System.out.println("History created");
     }
     
     
+//    @FXML
+//    void createHistory(ActionEvent createHisotryEvent) {
+//    	expHistory = new ArrayList<ExpenseEntry>();
+//    	system.setText("Expense History created");
+//        System.out.println("History created");
+//    }
+    
+    
     @FXML
     void addExpense(ActionEvent addExpEvent) {
+    	if(expHistory == null) {
+    		system.setText("Please Create History first!");
+    	}
+    	
     	String t = expType.getValue();
     	String n = note.getText();
     	String a = expAmount.getText();
-//    	System.out.println(t + "\t" + n + "\t" + a);
     	
     	expEntry = new ExpenseEntry(t, n, a);    	
     	expHistory.add(expEntry);
     	
     	expAdded.setText("Expense added: " + expEntry.toString());
+    	
+    	//Update expense and balance
+    	double expValue = Double.parseDouble(a);
+    	currentExp = currentExp + expValue;
+    	String updExp = String.valueOf(currentExp);
+    	expDisplay.setText(updExp);
+    	
+    	currentBal = currentBal - currentExp;
+    	String updBal = String.valueOf(currentBal);
+    	balDisplay.setText(updBal);
+
     	
 //    	for(int i = 0; i < expHistory.size(); i++)
 //            System.out.println("entry added " + expHistory.get(i).toString());
