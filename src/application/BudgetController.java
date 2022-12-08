@@ -1,6 +1,8 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javafx.event.ActionEvent;
 
@@ -8,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -47,6 +50,9 @@ public class BudgetController {
     @FXML
     private Label bdgErrorLabel;
     
+    @FXML
+    private DatePicker expDate;
+    
     private ExpenseEntry expEntry;
     
     private ArrayList<ExpenseEntry> expHistory;
@@ -83,11 +89,12 @@ public class BudgetController {
     		system.setText("Please Create History first!");
     	}
     	
+    	LocalDate d = expDate.getValue();
     	String t = expType.getValue();
     	String n = note.getText();
     	String a = expAmount.getText();
     	
-    	expEntry = new ExpenseEntry(t, n, a);    	
+    	expEntry = new ExpenseEntry(d, t, n, a);    	
     	expHistory.add(expEntry);
     	
     	expAdded.setText("Expense added: " + expEntry.toString());

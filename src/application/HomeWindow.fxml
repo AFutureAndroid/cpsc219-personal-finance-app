@@ -5,10 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetController">
-
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetController">
    <children>
       <Label text="BUDGET APP">
          <font>
@@ -18,7 +17,7 @@
             <Insets bottom="10.0" />
          </padding>
       </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="120.0" prefWidth="200.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -26,52 +25,45 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
                   </Label>
                   <TextField fx:id="budget">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></TextField>
                   <Button mnemonicParsing="false" onAction="#enterBudget" text="Enter" />
+                  <Label />
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
                </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <Label fx:id="bdgErrorLabel" text="">
-                     <font>
-                        <Font size="8.0" />
-                     </font>
-                  </Label>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="125.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="BUDGET">
+                  <Label text="BUDGET">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="bdgDisplay" text="\$ 0">
+                  <Label fx:id="bdgDisplay" text="\$ 0" textFill="#51da39">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="125.0">
                <children>
                   <Label text="EXPENSES">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="expDisplay" text="\$ 0">
+                  <Label fx:id="expDisplay" text="\$ 0" textFill="#d33f3f">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
@@ -80,47 +72,55 @@
                <children>
                   <Label text="BALANCE">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="balDisplay" text="\$ 0">
+                  <Label fx:id="balDisplay" text="\$ 0 ">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="20.0" />
-         </padding>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="200.0">
                <children>
+                  <Label text="Date">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="expDate">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></DatePicker>
                   <Label text="Expense Type">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="expType" prefWidth="150.0" >
-                    	<String fx:value="Food"/>
+                  <ChoiceBox fx:id="expType" prefWidth="150.0">
+                  		<String fx:value="Food"/>
                   	  	<String fx:value="Groceries"/>  
                   	  	<String fx:value="Transport"/>
                   	  	<String fx:value="School"/>
                   	  	<String fx:value="Rent"/>
-                  	  	<String fx:value="Entertainment"/>   
-                  </ChoiceBox>
+                  	  	<String fx:value="Entertainment"/> 
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></ChoiceBox>
                   <Label text="Notes">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="note" />
+                  <TextField fx:id="note">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></TextField>
                   <Label text="Expense Amount">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -136,30 +136,21 @@
                   <Insets left="20.0" right="20.0" />
                </padding>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="125.0">
-               <children> 
+            <VBox prefHeight="200.0" prefWidth="150.0">
+               <children>
                   <Button mnemonicParsing="false" onAction="#getExpHistory" text="Expense History" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="150.0">
+               <children>
+                  <Label fx:id="system" />
+                  <Label fx:id="expAdded" />
                </children>
             </VBox>
          </children>
-         <opaqueInsets>
-            <Insets bottom="300.0" />
-         </opaqueInsets>
-         <VBox prefHeight="200.0" prefWidth="400.0">
-            <children>
-            	<Label fx:id="system" text="">
-             		<font>
-               		<Font name="System Bold" size="12.0" />
-             		</font>
-          		</Label>
-          		<Label fx:id="expAdded" text="">
-             		<font>
-                	<Font name="System Bold" size="12.0" />
-             		</font>
-          		</Label>
-            </children>
-         </VBox>
-          
       </HBox>
    </children>
 </VBox>
