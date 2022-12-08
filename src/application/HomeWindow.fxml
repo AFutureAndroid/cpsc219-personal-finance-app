@@ -160,5 +160,13 @@
             </VBox>
          </children>
       </HBox>
+      <HBox>
+      	 <children>
+      	 	<Label fx:id = "expErrorLabel" text = "" textFill = "#d33f3f" /> 	 	
+      	 </children>
+      	 <padding>
+            <Insets left="20.0" bottom="15.0"/>
+         </padding>
+      </HBox>
    </children>
 </VBox>

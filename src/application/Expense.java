@@ -1,14 +1,14 @@
 package application;
 
-public class Budget {
-	private String budgetValue;
+public class Expense {
+	private String expValue;
 	
-	public Budget(String budgetValue) {
-		this.budgetValue = budgetValue;
+	public Expense(String expValue) {
+		this.expValue = expValue;
 	}
 	
-	public String getBudget() {
-		return budgetValue;
+	public String getExpense() {
+		return expValue;
 	}
 	
 	public String setValue(String valueAsString) {
@@ -33,9 +33,8 @@ public class Budget {
 		}
 		
 		if (validValue) {
-			budgetValue = valueAsString;
+			expValue = valueAsString;
 		}
 		return errorMessage;
 	}
-	
 }

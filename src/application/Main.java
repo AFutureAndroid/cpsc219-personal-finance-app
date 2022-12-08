@@ -17,7 +17,7 @@ public class Main extends Application {
 			BudgetController controller = (BudgetController)loader.getController();
 			controller.mainStage = primaryStage;
 			
-			Scene scene = new Scene(root,700,400);
+			Scene scene = new Scene(root,650,450);
 
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Budgeting Application");

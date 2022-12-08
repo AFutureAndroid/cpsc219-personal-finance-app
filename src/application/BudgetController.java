@@ -51,6 +51,9 @@ public class BudgetController {
     private Label bdgErrorLabel;
     
     @FXML
+    private Label expErrorLabel;
+    
+    @FXML
     private DatePicker expDate;
     
     private ExpenseEntry expEntry;
@@ -83,9 +86,6 @@ public class BudgetController {
     
     @FXML
     void addExpense(ActionEvent addExpEvent) {
-    	if(expHistory == null) {
-    		system.setText("Please Create History first!");
-    	}
     	
     	LocalDate d = expDate.getValue();
     	String t = expType.getValue();
@@ -96,6 +96,13 @@ public class BudgetController {
     	expHistory.add(expEntry);
     	
     	expAdded.setText("Expense added: " + expEntry.toString());
+    	
+    	//
+    	expErrorLabel.setText("");
+    	String expEntered = expAmount.getText();
+    	Expense exp = new Expense(expEntered);
+    	expErrorLabel.setText(exp.setValue(expAmount.getText()));
+    	
     	
     	//Update expense and balance
     	double expValue = Double.parseDouble(a);
