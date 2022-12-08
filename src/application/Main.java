@@ -15,7 +15,7 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			VBox root = loader.load(new FileInputStream("src/application/HomeWindow.fxml"));
 			BudgetController controller = (BudgetController)loader.getController();
-			controller.applicationStage = primaryStage;
+			controller.mainStage = primaryStage;
 			
 			Scene scene = new Scene(root,700,400);
 

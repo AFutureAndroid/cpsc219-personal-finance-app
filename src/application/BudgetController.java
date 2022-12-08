@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class BudgetController {
-	Stage applicationStage;
+	Stage mainStage;
 
     @FXML
     private TextField expAmount;
@@ -64,23 +64,21 @@ public class BudgetController {
     
     @FXML
     void enterBudget(ActionEvent event) {
-    	double money = Double.parseDouble(budget.getText());
-    	currentBal = money;
-    	bdgDisplay.setText(String.format("$%.2f", currentBal));
-    	balDisplay.setText(String.format("$%.2f", currentBal));
+    	bdgErrorLabel.setText("");
+    	
+    	String bdgEntered = budget.getText();
+    	Budget bdg = new Budget(bdgEntered);
+    	bdgErrorLabel.setText(bdg.setValue(budget.getText()));
+    	
+    	double bdgValue = Double.parseDouble(bdgEntered);
+    	currentBal = Double.parseDouble(bdgEntered);
+    	bdgDisplay.setText(String.format("$%.1f", bdgValue));
+    	balDisplay.setText(String.format("$%.1f", currentBal));
     	
     	expHistory = new ArrayList<ExpenseEntry>();
     	system.setText("Expense History created");
         System.out.println("History created");
     }
-    
-    
-//    @FXML
-//    void createHistory(ActionEvent createHisotryEvent) {
-//    	expHistory = new ArrayList<ExpenseEntry>();
-//    	system.setText("Expense History created");
-//        System.out.println("History created");
-//    }
     
     
     @FXML
@@ -102,12 +100,13 @@ public class BudgetController {
     	//Update expense and balance
     	double expValue = Double.parseDouble(a);
     	currentExp = currentExp + expValue;
-    	String updExp = String.valueOf(currentExp);
+    	String updExp = Double.toString(currentExp);
     	expDisplay.setText(updExp);
     	
     	currentBal = currentBal - currentExp;
-    	String updBal = String.valueOf(currentBal);
+    	String updBal = Double.toString(currentBal);
     	balDisplay.setText(updBal);
+    	
 
     	
 //    	for(int i = 0; i < expHistory.size(); i++)
@@ -118,7 +117,7 @@ public class BudgetController {
     
     @FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
-    	Scene mainScene = applicationStage.getScene();
+    	Scene mainScene = mainStage.getScene();
     	
     	VBox expHistoryBox = new VBox();
     	expHistoryBox.setPrefSize(300, 100);
@@ -144,12 +143,12 @@ public class BudgetController {
     	}
     	
     	Button returnButton = new Button("Go Back");
-    	returnButton.setOnAction(returnEvent -> applicationStage.setScene(mainScene));
+    	returnButton.setOnAction(returnEvent -> mainStage.setScene(mainScene));
     	
     	
     	expHistoryBox.getChildren().add(returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
-    	applicationStage.setScene(expHistoryScene);
+    	mainStage.setScene(expHistoryScene);
     }
 
 }

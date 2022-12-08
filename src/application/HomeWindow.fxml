@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BudgetController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+		fx:controller="application.BudgetController">
    <children>
       <Label text="BUDGET APP">
          <font>
@@ -17,7 +18,7 @@
             <Insets bottom="10.0" />
          </padding>
       </Label>
-      <HBox prefHeight="120.0" prefWidth="200.0">
+      <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <VBox prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -33,8 +34,7 @@
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin></TextField>
-                  <Button mnemonicParsing="false" onAction="#enterBudget" text="Enter" />
-                  <Label />
+                  <Button mnemonicParsing="false" onAction="#enterBudget" text="Enter" />            
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
@@ -83,6 +83,14 @@
                </children>
             </VBox>
          </children>
+      </HBox>
+      <HBox>
+      	 <children>
+      	 	<Label fx:id = "bdgErrorLabel" text = "" textFill = "#d33f3f" /> 	 	
+      	 </children>
+      	 <padding>
+            <Insets left="20.0" bottom="15.0"/>
+         </padding>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
