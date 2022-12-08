@@ -66,9 +66,10 @@ public class BudgetController {
     
     
     @FXML
-    void enterBudget(ActionEvent event) {
+    void enterBudget(ActionEvent event) {  	    	
     	bdgErrorLabel.setText("");
     	
+    	//Error Checking
     	String bdgEntered = budget.getText();
     	Budget bdg = new Budget(bdgEntered);
     	bdgErrorLabel.setText(bdg.setValue(budget.getText()));
@@ -81,6 +82,7 @@ public class BudgetController {
     	expHistory = new ArrayList<ExpenseEntry>();
     	system.setText("Expense History created");
         System.out.println("History created");
+        
     }
     
     
@@ -95,14 +97,13 @@ public class BudgetController {
     	expEntry = new ExpenseEntry(d, t, n, a);    	
     	expHistory.add(expEntry);
     	
-    	expAdded.setText("Expense added: " + expEntry.toString());
+    	expAdded.setText("Expense added:\n" + expEntry.getEntry());
     	
-    	//
+    	//Error Checking
     	expErrorLabel.setText("");
     	String expEntered = expAmount.getText();
     	Expense exp = new Expense(expEntered);
-    	expErrorLabel.setText(exp.setValue(expAmount.getText()));
-    	
+    	expErrorLabel.setText(exp.setValue(expAmount.getText()));	
     	
     	//Update expense and balance
     	double expValue = Double.parseDouble(a);
@@ -127,25 +128,52 @@ public class BudgetController {
     	Scene mainScene = mainStage.getScene();
     	
     	VBox expHistoryBox = new VBox();
-    	expHistoryBox.setPrefSize(300, 100);
+    	expHistoryBox.setPrefSize(350, 100);
 
-    	Label expHistoryLabel = new Label("----------------Expense History----------------");
+    		Label expHistoryLabel = new Label("--------------------Expense History--------------------");
+    		expHistoryBox.getChildren().add(expHistoryLabel);
+    		
+    		HBox titles = new HBox();
+    			Label dateTitle = new Label("\t" + "Date" + "\t\t");
+    			Label typeTitle = new Label("Type" + "\t\t\t");
+    			Label amountTitle = new Label("Amount" + "\t\t");
+    			Label noteTitle= new Label("Note" + "\t\t");  	
+    		titles.getChildren().addAll(dateTitle, typeTitle, amountTitle, noteTitle);
+    		expHistoryBox.getChildren().add(titles);
+    		
+    		Label separation1 = new Label("---------------------------------------------------------");
+    		expHistoryBox.getChildren().add(separation1);
+    		
+    		HBox coloums = new HBox(); 
+    			VBox dateCol = new VBox();
+    			dateCol.setPrefSize(80, 100);
+    			VBox typeCol = new VBox();
+    			typeCol.setPrefSize(80, 100);
+    			VBox amountCol = new VBox();
+    			amountCol.setPrefSize(80, 100);
+    			VBox noteCol = new VBox();
+    			noteCol.setPrefSize(40, 100);
+    		coloums.getChildren().addAll(dateCol, typeCol, amountCol, noteCol);
+    		expHistoryBox.getChildren().add(coloums);	
     	
-    	HBox description = new HBox();
-    	Label typeLabel = new Label("Expense Type" + "       ");
-    	Label noteLabel = new Label("Note" + "       ");
-    	Label amountLabel = new Label("Expense Amount" + "       ");
-    	description.getChildren().addAll(typeLabel, noteLabel, amountLabel);
-    	
-    	Label separation = new Label("-------------------------------------------------");
-    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, separation);
+    		Label separation2 = new Label("---------------------------------------------------------");
+    		expHistoryBox.getChildren().add(separation2);
+
     	
     	int i = 0;
     	int numOfEntries = expHistory.size();  	
     	while(i < numOfEntries) {
-        	System.out.println(expHistory.get(i).toString());
-        	Label l = new Label(expHistory.get(i).toString());
-        	expHistoryBox.getChildren().add(l);
+//        	System.out.println(expHistory.get(i).toRow());
+        	
+    		Label date = new Label(expHistory.get(i).dateToHistory());
+    		dateCol.getChildren().add(date);
+    		Label type = new Label(expHistory.get(i).typeToHistory());
+    		typeCol.getChildren().add(type);
+    		Label amount = new Label(expHistory.get(i).amountToHistory());
+    		amountCol.getChildren().add(amount);
+    		Label note = new Label(expHistory.get(i).noteToHistory());
+    		noteCol.getChildren().add(note);
+   	
         	i++;
     	}
     	

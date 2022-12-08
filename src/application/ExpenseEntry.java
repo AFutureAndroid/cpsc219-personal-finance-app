@@ -18,11 +18,32 @@ public class ExpenseEntry {
 		this.expAmount = expAmount;
 	}
 
-	@Override
-	public String toString() {
-		String format = expDate + "       " + expType + "       " + expNote + "       " + "$" + expAmount;
+	public String getEntry() {
+		String format = "Date:      " + expDate + "\n" +
+						"Type:      " + expType + "\n" + 
+						"Amount: " + "$" + expAmount + "\n" +
+						"Note:      " + expNote ; 				
 		return format;
-		
+	}
+	
+	public String dateToHistory() {	
+		String format = " " + expDate.toString();
+		return format;
+	}
+	
+	public String typeToHistory() {
+		String format = expType;
+		return format;
+	}
+	
+	public String amountToHistory() {
+		String format = expAmount;
+		return format;
+	}
+	
+	public String noteToHistory() {
+		String format = expNote;
+		return format;
 	}
 	
 	
