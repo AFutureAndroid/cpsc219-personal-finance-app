@@ -2,6 +2,7 @@ package application;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import javafx.event.ActionEvent;
@@ -88,14 +89,19 @@ public class BudgetController {
     
     @FXML
     void addExpense(ActionEvent addExpEvent) {
-    	LocalDate d = expDate.getValue();
+    	int year = expDate.getValue().getYear();
+    	int month = expDate.getValue().getMonthValue();
+    	int day = expDate.getValue().getDayOfMonth();
+    	
+    	LocalDate d = LocalDate.of(year, month, day);
     	String t = expType.getValue();
     	String n = note.getText();
     	String a = expAmount.getText();
     	
-    	expEntry = new ExpenseEntry(d, t, n, a);    	
+    	expEntry = new ExpenseEntry(d, t, n, a);    
+    	System.out.println(expEntry.getExpDate());
     	
-    	//Error Checking
+    	//Error Checking.
     	expErrorLabel.setText("");
     	String expEntered = expAmount.getText();
     	Expense exp = new Expense(expEntered);	
@@ -107,6 +113,10 @@ public class BudgetController {
     	if(add == true) {
         	expAdded.setText("Expense added:\n" + expEntry.getEntry());	
         	expHistory.add(expEntry);
+        	
+        	for(int i = 0; i < expHistory.size(); i++) {
+                System.out.println("date added " + expHistory.get(i).dateToHistory());
+        	}
         	
         	//Update expense and balance
         	double expValue = Double.parseDouble(a);
@@ -159,7 +169,10 @@ public class BudgetController {
     	
     	int i = 0;
     	int numOfEntries = expHistory.size();  	
-    	while(i < numOfEntries) {        	
+    	while(i < numOfEntries) {        
+    		
+    		Collections.sort(expHistory, new SortByTime());
+    		
     		Label date = new Label(expHistory.get(i).dateToHistory());
     		dateCol.getChildren().add(date);
     		Label type = new Label(expHistory.get(i).typeToHistory());

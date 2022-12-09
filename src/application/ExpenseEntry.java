@@ -71,8 +71,12 @@ public class ExpenseEntry {
 		this.expAmount = expAmount;
 	}
 	
-	public String getExpDate() {
-		return expAmount;
+	public LocalDate getExpDate() {
+		int year = expDate.getYear();
+		int month = expDate.getMonthValue();
+		int day = expDate.getDayOfMonth();
+		LocalDate format = LocalDate.of(year, month, day);
+		return format;
 	}
 
 	public void setExpDate(LocalDate expDate) {
