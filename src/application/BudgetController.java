@@ -1,13 +1,18 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -19,7 +24,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class BudgetController {
-	Stage mainStage;
+	
+	 Stage mainStage;
+	
+	 Scene mainScene;
+	
+	 Parent root;
 
     @FXML
     private TextField expAmount;
@@ -191,6 +201,15 @@ public class BudgetController {
     	expHistoryBox.getChildren().add(returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
     	mainStage.setScene(expHistoryScene);
+    }
+    
+    
+    public void goToSummary(ActionEvent goToSummaryEvent) throws FileNotFoundException, IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("SummaryWindow.fxml"));
+		mainStage = (Stage)((Node)goToSummaryEvent.getSource()).getScene().getWindow();
+		mainScene = new Scene(root);
+		mainStage.setScene(mainScene);
+		mainStage.show();
     }
 
 }

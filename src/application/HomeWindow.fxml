@@ -147,6 +147,8 @@
             <VBox prefHeight="200.0" prefWidth="150.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#getExpHistory" text="Expense History" />
+                  <Button mnemonicParsing="false" onAction="#goToSummary" text="Summary" />
+                  
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
