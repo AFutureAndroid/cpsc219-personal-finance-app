@@ -148,6 +148,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#getExpHistory" text="Expense History" />
                   <Button mnemonicParsing="false" onAction="#goToSummary" text="Summary" />
+                  <Button mnemonicParsing="false" onAction="#goToHistory" text="History" />
                   
                </children>
                <padding>

@@ -25,11 +25,11 @@ import javafx.stage.Stage;
 
 public class BudgetController {
 	
-	 Stage mainStage;
+	Stage mainStage;
 	
-	 Scene mainScene;
+	Scene mainScene;
 	
-	 Parent root;
+	Parent root;
 
     @FXML
     private TextField expAmount;
@@ -124,9 +124,9 @@ public class BudgetController {
         	expAdded.setText("Expense added:\n" + expEntry.getEntry());	
         	expHistory.add(expEntry);
         	
-        	for(int i = 0; i < expHistory.size(); i++) {
-                System.out.println("date added " + expHistory.get(i).dateToHistory());
-        	}
+//        	for(int i = 0; i < expHistory.size(); i++) {
+//                System.out.println("date added " + expHistory.get(i).dateToHistory());
+//        	}
         	
         	//Update expense and balance
         	double expValue = Double.parseDouble(a);
@@ -203,6 +203,27 @@ public class BudgetController {
     	mainStage.setScene(expHistoryScene);
     }
     
+    public void goToHistory(ActionEvent goToHistoryEvent) throws FileNotFoundException, IOException {
+    	
+        ArrayList<ExpenseEntry> expList = new ArrayList<ExpenseEntry>();
+        expList = expHistory;
+        
+    	for(int i = 0; i < expList.size(); i++) {
+    		System.out.println("entry added to expList" + expList.get(i).getEntry());
+    	}
+        
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("ExpHistoryWindow.fxml"));
+    	root = loader.load();
+    	
+    	HistoryController HistoryController = loader.getController();
+    	HistoryController.showAllEntries(expList);
+		
+		mainStage = (Stage)((Node)goToHistoryEvent.getSource()).getScene().getWindow();
+		mainScene = new Scene(root);
+		mainStage.setScene(mainScene);
+		mainStage.show();
+		
+    }
     
     public void goToSummary(ActionEvent goToSummaryEvent) throws FileNotFoundException, IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("SummaryWindow.fxml"));
@@ -211,6 +232,8 @@ public class BudgetController {
 		mainStage.setScene(mainScene);
 		mainStage.show();
     }
+    
+    
 
 }
 

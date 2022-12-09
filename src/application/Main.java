@@ -28,6 +28,7 @@ public class Main extends Application {
 			Parent root = FXMLLoader.load(getClass().getResource("HomeWindow.fxml"));
 			Scene scene = new Scene(root,650, 450);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Budgeting Application");
 			primaryStage.show();
 
 			
