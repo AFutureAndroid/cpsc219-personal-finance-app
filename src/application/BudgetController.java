@@ -88,38 +88,36 @@ public class BudgetController {
     
     @FXML
     void addExpense(ActionEvent addExpEvent) {
-    	
     	LocalDate d = expDate.getValue();
     	String t = expType.getValue();
     	String n = note.getText();
     	String a = expAmount.getText();
     	
     	expEntry = new ExpenseEntry(d, t, n, a);    	
-    	expHistory.add(expEntry);
-    	
-    	expAdded.setText("Expense added:\n" + expEntry.getEntry());
     	
     	//Error Checking
     	expErrorLabel.setText("");
     	String expEntered = expAmount.getText();
-    	Expense exp = new Expense(expEntered);
-    	expErrorLabel.setText(exp.setValue(expAmount.getText()));	
+    	Expense exp = new Expense(expEntered);	
     	
-    	//Update expense and balance
-    	double expValue = Double.parseDouble(a);
-    	currentExp = currentExp + expValue;
-    	String updExp = Double.toString(currentExp);
-    	expDisplay.setText(updExp);
-    	
-    	currentBal = currentBal - currentExp;
-    	String updBal = Double.toString(currentBal);
-    	balDisplay.setText(updBal);
-    	
-
-    	
-//    	for(int i = 0; i < expHistory.size(); i++)
-//            System.out.println("entry added " + expHistory.get(i).toString());
-    	
+    	boolean add = exp.checkToAddExp(expEntered);
+    	if(add == false) {
+        	expErrorLabel.setText(exp.setValue(expEntered));
+    	}
+    	if(add == true) {
+        	expAdded.setText("Expense added:\n" + expEntry.getEntry());	
+        	expHistory.add(expEntry);
+        	
+        	//Update expense and balance
+        	double expValue = Double.parseDouble(a);
+        	currentExp = currentExp + expValue;
+        	String updExp = Double.toString(currentExp);
+        	expDisplay.setText(updExp);
+        	
+        	currentBal = currentBal - currentExp;
+        	String updBal = Double.toString(currentBal);
+        	balDisplay.setText(updBal);     		
+    	}
     }
     
     
@@ -130,7 +128,7 @@ public class BudgetController {
     	VBox expHistoryBox = new VBox();
     	expHistoryBox.setPrefSize(350, 100);
 
-    		Label expHistoryLabel = new Label("--------------------Expense History--------------------");
+    		Label expHistoryLabel = new Label("-------------------------Expense History-------------------------");
     		expHistoryBox.getChildren().add(expHistoryLabel);
     		
     		HBox titles = new HBox();
@@ -141,7 +139,7 @@ public class BudgetController {
     		titles.getChildren().addAll(dateTitle, typeTitle, amountTitle, noteTitle);
     		expHistoryBox.getChildren().add(titles);
     		
-    		Label separation1 = new Label("---------------------------------------------------------");
+    		Label separation1 = new Label("-------------------------------------------------------------------");
     		expHistoryBox.getChildren().add(separation1);
     		
     		HBox coloums = new HBox(); 
@@ -156,15 +154,12 @@ public class BudgetController {
     		coloums.getChildren().addAll(dateCol, typeCol, amountCol, noteCol);
     		expHistoryBox.getChildren().add(coloums);	
     	
-    		Label separation2 = new Label("---------------------------------------------------------");
+    		Label separation2 = new Label("-------------------------------------------------------------------");
     		expHistoryBox.getChildren().add(separation2);
-
     	
     	int i = 0;
     	int numOfEntries = expHistory.size();  	
-    	while(i < numOfEntries) {
-//        	System.out.println(expHistory.get(i).toRow());
-        	
+    	while(i < numOfEntries) {        	
     		Label date = new Label(expHistory.get(i).dateToHistory());
     		dateCol.getChildren().add(date);
     		Label type = new Label(expHistory.get(i).typeToHistory());
@@ -178,8 +173,7 @@ public class BudgetController {
     	}
     	
     	Button returnButton = new Button("Go Back");
-    	returnButton.setOnAction(returnEvent -> mainStage.setScene(mainScene));
-    	
+    	returnButton.setOnAction(returnEvent -> mainStage.setScene(mainScene));   	
     	
     	expHistoryBox.getChildren().add(returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);

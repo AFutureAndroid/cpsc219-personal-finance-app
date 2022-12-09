@@ -37,4 +37,15 @@ public class Expense {
 		}
 		return errorMessage;
 	}
+	
+	public boolean checkToAddExp(String exp) {
+		if(exp == null) return false;
+		
+		for(int i = 0; i < exp.length(); i++) {
+			if ((Character.isLetter(exp.charAt(i)) == true)) {
+	            return false;
+	         }
+		}
+		return true;
+	}
 }
