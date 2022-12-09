@@ -101,7 +101,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="expDate">
+                  <DatePicker fx:id="datePicker">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin></DatePicker>

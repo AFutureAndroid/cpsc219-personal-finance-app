@@ -6,30 +6,36 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 public class ExpenseEntry {
-	private LocalDate expDate;
+//	private LocalDate expDate;
 	private String expType;
 	private String expNote;
 	private String expAmount;
 	
-	public ExpenseEntry(LocalDate expDate, String expType, String expNote, String expAmount) {
-		this.expDate = expDate;
+//	public ExpenseEntry(LocalDate expDate, String expType, String expNote, String expAmount) {
+//		this.expDate = expDate;
+//		this.expType = expType;
+//		this.expNote = expNote;
+//		this.expAmount = expAmount;
+//	}
+	
+	public ExpenseEntry(String expType, String expNote, String expAmount) {
 		this.expType = expType;
 		this.expNote = expNote;
 		this.expAmount = expAmount;
 	}
 
 	public String getEntry() {
-		String format = "Date:      " + expDate + "\n" +
+		String format = 
 						"Type:      " + expType + "\n" + 
 						"Amount: " + "$" + expAmount + "\n" +
 						"Note:      " + expNote ; 				
 		return format;
 	}
 	
-	public String dateToHistory() {	
-		String format = " " + expDate.toString();
-		return format;
-	}
+//	public String dateToHistory() {	
+//		String format = " " + expDate.toString();
+//		return format;
+//	}
 	
 	public String typeToHistory() {
 		String format = expType;
@@ -75,7 +81,7 @@ public class ExpenseEntry {
 		return expAmount;
 	}
 
-	public void setExpDate(LocalDate expDate) {
-		this.expDate = expDate;
-	}
+//	public void setExpDate(LocalDate expDate) {
+//		this.expDate = expDate;
+//	}
 }
