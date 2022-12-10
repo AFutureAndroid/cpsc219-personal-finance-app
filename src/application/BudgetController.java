@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -13,6 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
 /**
@@ -65,6 +70,8 @@ public class BudgetController {
     private double currentExp = 0.0;
     
     private double currentBal = 0.0;
+    
+    private Scene barChartScene;
     
     /**
      * Handles user input for budget value, sets error labels
@@ -256,6 +263,6 @@ public class BudgetController {
   				  	  expHistory.get(size-3).getEntry(); 
     	}
 		return content;
-	}  
+	}
 }
 
