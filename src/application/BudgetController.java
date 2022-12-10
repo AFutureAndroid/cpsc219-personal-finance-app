@@ -1,6 +1,9 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 import javafx.event.ActionEvent;
 
@@ -8,16 +11,19 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This is the controller class for the budgeting application.
+ * Works with user inputs, and changes the scene when required.
+ */
 public class BudgetController {
-	private double initialInput;
-	private double expenseInput;
-	Stage applicationStage;
+	Stage mainStage;
 
     @FXML
     private TextField expAmount;
@@ -30,137 +36,233 @@ public class BudgetController {
 
     @FXML
     private Label balDisplay;
+    
+    @FXML
+    private Label expDisplay;
 
     @FXML
     private ChoiceBox<String> expType;
 
     @FXML
-    private Label expDisplay;
-
-    @FXML
     private TextField budget;
     
-
-    @FXML
-    private Label budgetErrorLabel;
-    
-    @FXML
-    private Label expenseErrorLabel;
-
     @FXML
     private Label system;
     
     @FXML
-    private Label expAdded;
+    private Label recExp;
+    
+    @FXML
+    private Label bdgErrorLabel;
+    
+    @FXML
+    private Label expErrorLabel;
+    
+    @FXML
+    private DatePicker expDate;
     
     private ExpenseEntry expEntry;
     
     private ArrayList<ExpenseEntry> expHistory;
     
+    private double currentExp = 0.0;
     
-    @FXML
-
-    void enterBudget(ActionEvent event) {
-		budgetErrorLabel.setText("");
-    	double currentBal = 0.0;
-    	double money = Double.parseDouble(budget.getText());
-    	currentBal = money;
-    	bdgDisplay.setText(String.format("$%.2f", currentBal));
-    	balDisplay.setText(String.format("$%.2f", currentBal));
-    }
+    private double currentBal = 0.0;
     
+    /**
+     * Handles user input for budget value, sets error labels
+     * and displays. Also initiates the expense history.
+     * 
+     * @param event User clicks the enter button to trigger event.
+     */
     @FXML
-    void createHistory(ActionEvent createHisotryEvent) {
+    private void enterBudget(ActionEvent event) {  	    	
+    	bdgErrorLabel.setText("");
+    	
+    	//Error Checking
+    	String bdgEntered = budget.getText();
+    	Budget bdg = new Budget(bdgEntered);
+    	bdgErrorLabel.setText(bdg.setValue(budget.getText()));
+    	
+    	double bdgValue = Double.parseDouble(bdgEntered);
+    	currentBal = Double.parseDouble(bdgEntered);
+    	bdgDisplay.setText(String.format("$%.1f", bdgValue));
+    	balDisplay.setText(String.format("$%.1f", currentBal));
+    	
     	expHistory = new ArrayList<ExpenseEntry>();
     	system.setText("Expense History created");
         System.out.println("History created");
+        
     }
     
-    
+    /**
+     * Works with user input to add expenses and update displays.
+     * New expense is added to the expense history.
+     * 
+     * @param addExpEvent User clicks the add expense button to trigger.
+     */
     @FXML
-    void addExpense(ActionEvent addExpEvent) {
+    private void addExpense(ActionEvent addExpEvent) {
+    	int year = expDate.getValue().getYear();
+    	int month = expDate.getValue().getMonthValue();
+    	int day = expDate.getValue().getDayOfMonth();
+    	
+    	LocalDate d = LocalDate.of(year, month, day);
     	String t = expType.getValue();
     	String n = note.getText();
     	String a = expAmount.getText();
-//    	System.out.println(t + "\t" + n + "\t" + a);
     	
-    	expEntry = new ExpenseEntry(t, n, a);    	
-    	expHistory.add(expEntry);
+    	expEntry = new ExpenseEntry(d, t, n, a);    
+    	System.out.println(expEntry.getExpDate());
     	
-    	expAdded.setText("Expense added: " + expEntry.toString());
+    	//Error Checking.
+    	expErrorLabel.setText("");
+    	String expEntered = expAmount.getText();
+    	Expense exp = new Expense(expEntered);	
     	
-//    	for(int i = 0; i < expHistory.size(); i++)
-//            System.out.println("entry added " + expHistory.get(i).toString());
-    	
+    	boolean add = exp.checkToAddExp(expEntered);
+    	if(add == false) {
+        	expErrorLabel.setText(exp.setValue(expEntered));
+    	}
+    	if(add == true) { 
+    		expHistory.add(expEntry);
+    		recExp.setText(getRecExp(expHistory, recExp));	
+        	
+        	for(int i = 0; i < expHistory.size(); i++) {
+                System.out.println("date added " + expHistory.get(i).dateToHistory());
+        	}
+        	
+        	//Update expense and balance
+        	double expValue = Double.parseDouble(a);
+        	currentExp = currentExp + expValue;
+        	String updExp = Double.toString(currentExp);
+        	expDisplay.setText(updExp);
+        	
+        	currentBal = currentBal - currentExp;
+        	String updBal = Double.toString(currentBal);
+        	balDisplay.setText(updBal);     		
+    	}
     }
-    
-    
-    @FXML
+
+    /**
+     * Displays the history in a new window. Also creates return button,
+     * to return to the main scene.
+     * 
+     * @param expHistoryEvent User clicks expense history to trigger event.
+     */
+	@FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
-    	Scene mainScene = applicationStage.getScene();
+    	Scene mainScene = mainStage.getScene();
     	
     	VBox expHistoryBox = new VBox();
-    	expHistoryBox.setPrefSize(300, 100);
+    	expHistoryBox.setPrefSize(350, 150);
 
-    	Label expHistoryLabel = new Label("----------------Expense History----------------");
+    		Label expHistoryLabel = new Label("-------------------------Expense History-------------------------");
+    		expHistoryBox.getChildren().add(expHistoryLabel);
+    		
+    		HBox titles = new HBox();
+    			Label dateTitle = new Label("\t" + "Date" + "\t\t");
+    			Label typeTitle = new Label("Type" + "\t\t\t");
+    			Label amountTitle = new Label("Amount" + "\t\t");
+    			Label noteTitle= new Label("Note" + "\t\t");  	
+    		titles.getChildren().addAll(dateTitle, typeTitle, amountTitle, noteTitle);
+    		expHistoryBox.getChildren().add(titles);
+    		
+    		Label separation1 = new Label("-------------------------------------------------------------------");
+    		expHistoryBox.getChildren().add(separation1);
+    		
+    		HBox coloums = new HBox(); 
+    			VBox dateCol = new VBox();
+    			dateCol.setPrefSize(80, 100);
+    			VBox typeCol = new VBox();
+    			typeCol.setPrefSize(80, 100);
+    			VBox amountCol = new VBox();
+    			amountCol.setPrefSize(80, 100);
+    			VBox noteCol = new VBox();
+    			noteCol.setPrefSize(40, 100);
+    		coloums.getChildren().addAll(dateCol, typeCol, amountCol, noteCol);
+    		expHistoryBox.getChildren().add(coloums);	
     	
-    	HBox description = new HBox();
-    	Label typeLabel = new Label("Expense Type" + "       ");
-    	Label noteLabel = new Label("Note" + "       ");
-    	Label amountLabel = new Label("Expense Amount" + "       ");
-    	description.getChildren().addAll(typeLabel, noteLabel, amountLabel);
-    	
-    	Label separation = new Label("-------------------------------------------------");
-    	expHistoryBox.getChildren().addAll(expHistoryLabel, description, separation);
+    		Label separation2 = new Label("-------------------------------------------------------------------");
+    		expHistoryBox.getChildren().add(separation2);
     	
     	int i = 0;
-    	int numOfEntries = expHistory.size();  	
-    	while(i < numOfEntries) {
-        	System.out.println(expHistory.get(i).toString());
-        	Label l = new Label(expHistory.get(i).toString());
-        	expHistoryBox.getChildren().add(l);
+    	int numOfEntries = expHistory.size(); 
+    	
+    	while(i < numOfEntries) {        
+    		Collections.sort(expHistory, new SortByTime());
+    		
+    		Label date = new Label(expHistory.get(i).dateToHistory());
+    		dateCol.getChildren().add(date);
+    		Label type = new Label(expHistory.get(i).typeToHistory());
+    		typeCol.getChildren().add(type);
+    		Label amount = new Label(expHistory.get(i).amountToHistory());
+    		amountCol.getChildren().add(amount);
+    		Label note = new Label(expHistory.get(i).noteToHistory());
+    		noteCol.getChildren().add(note);
+
         	i++;
     	}
     	
     	Button returnButton = new Button("Go Back");
-    	returnButton.setOnAction(returnEvent -> applicationStage.setScene(mainScene));
-    	
+    	returnButton.setOnAction(returnEvent -> mainStage.setScene(mainScene));     	
     	
     	expHistoryBox.getChildren().add(returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
-    	applicationStage.setScene(expHistoryScene);
+    	mainStage.setScene(expHistoryScene);
     }
-
-
-    	Calculator myBudget = new Calculator(0, 0);
-    	budgetErrorLabel.setText(myBudget.setValue(budget.getText()));    	
+	
+	
+	public void recAscendOrder(ActionEvent ascend) {
+		Collections.sort(expHistory, new SortByTime().reversed());
+		recExp.setText(getRecExp(expHistory, recExp));	
+	}
+	
+	public void recdescendOrder(ActionEvent descend) {
+		Collections.sort(expHistory, new SortByTime());
+		recExp.setText(getRecExp(expHistory, recExp));	
+	}
+	
+    
+    public void clearHistory(ActionEvent clearHistoryEvent) {
+    	recExp.setText("");	
+    	expHistory.clear();
     	
-    	double budgetVal = myBudget.getCurrentBalance();    	
-    	
-    	bdgDisplay.setText(String.format("$%.2f", budgetVal));
-    	balDisplay.setText(String.format("$%.2f", budgetVal));
     }
     
-    @FXML
-    void enterExpense(ActionEvent event) {
-    	expenseInput = 0;
-    }
+    /**
+     * Finds string with most recent expense in history.
+     * 
+     * @param expHistory ArrayList history of expenses.
+     * @param recExp Label will be updated with most recent expense.
+     * @return String that is the most recent expense.
+     */
+    private String getRecExp(ArrayList<ExpenseEntry> expHistory, Label recExp) {
+    	int size = expHistory.size();
+    	String content = "";
+    	if(size == 1) {
+    		content = expHistory.get(0).getEntry();
+    		return content;
+    	}
+    	else if(size == 2) {
+    		content = expHistory.get(0).getEntry() + "\n" +
+    				  expHistory.get(1).getEntry();
+    		return content;
+    	}
+    	else if(size == 3) {
+    		content = expHistory.get(0).getEntry() + "\n" +
+    				  expHistory.get(1).getEntry() + "\n" +
+    				  expHistory.get(2).getEntry();
+    		return content;
+    	}
+    	else {
+    		content = expHistory.get(size-1).getEntry() + "\n" +
+  				  	  expHistory.get(size-2).getEntry() + "\n" +
+  				  	  expHistory.get(size-3).getEntry(); 
+    	}
+		return content;
+	}
     
-    @FXML 
-    void calculateCurrentBalance(ActionEvent event) {
-    	expenseErrorLabel.setText("");
-    	initialInput = 0;
-    	//boolean noErrors = true;
-    	
-    	Calculator currentBal = new Calculator(0, 0);
-    	Calculator currentExp = new Calculator(0, 0);
-    	expenseErrorLabel.setText(currentExp.setValue(expAmount.getText()));
-    	
-    	budgetErrorLabel.setText(currentBal.setValue(budget.getText()));  
-    	double updBal = currentBal.getCurrentBalance() + currentExp.getExpense();
-    	double updExp = currentExp.getExpense();
-    	balDisplay.setText(String.format("$%.2f", updBal));
-    	expDisplay.setText(String.format("$%.2f", updExp));
-    }
+     
 }
 

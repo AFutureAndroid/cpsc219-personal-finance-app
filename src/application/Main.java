@@ -13,11 +13,11 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/HomeWindow.fxml"));
+			VBox root = loader.load(new FileInputStream("src/application/HomeWindow2.fxml"));
 			BudgetController controller = (BudgetController)loader.getController();
-			controller.applicationStage = primaryStage;
+			controller.mainStage = primaryStage;
 			
-			Scene scene = new Scene(root,700,400);
+			Scene scene = new Scene(root,670,550);
 
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Budgeting Application");
