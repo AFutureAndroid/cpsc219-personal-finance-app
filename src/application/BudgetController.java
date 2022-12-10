@@ -61,12 +61,13 @@ public class BudgetController {
     @FXML
 
     void enterBudget(ActionEvent event) {
-		budgetErrorLabel.setText("");
-    	double currentBal = 0.0;
-    	double money = Double.parseDouble(budget.getText());
-    	currentBal = money;
-    	bdgDisplay.setText(String.format("$%.2f", currentBal));
-    	balDisplay.setText(String.format("$%.2f", currentBal));
+    	Calculator myBudget = new Calculator(0, 0);
+    	budgetErrorLabel.setText(myBudget.setValue(budget.getText()));    	
+    	
+    	double budgetVal = myBudget.getCurrentBalance();    	
+    	
+    	bdgDisplay.setText(String.format("$%.2f", budgetVal));
+    	balDisplay.setText(String.format("$%.2f", budgetVal));
     }
     
     @FXML
@@ -129,16 +130,6 @@ public class BudgetController {
     	expHistoryBox.getChildren().add(returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
     	applicationStage.setScene(expHistoryScene);
-    }
-
-
-    	Calculator myBudget = new Calculator(0, 0);
-    	budgetErrorLabel.setText(myBudget.setValue(budget.getText()));    	
-    	
-    	double budgetVal = myBudget.getCurrentBalance();    	
-    	
-    	bdgDisplay.setText(String.format("$%.2f", budgetVal));
-    	balDisplay.setText(String.format("$%.2f", budgetVal));
     }
     
     @FXML
