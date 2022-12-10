@@ -87,9 +87,7 @@ public class BudgetController {
     	balDisplay.setText(String.format("$%.2f", currentBal));
     	
     	expHistory = new ArrayList<ExpenseEntry>();
-    	system.setText("Expense History created");
-        System.out.println("History created");
-        
+    	system.setText("Expense History created"); 
     }
     
     /**
@@ -110,7 +108,6 @@ public class BudgetController {
     	String a = expAmount.getText();
     	
     	expEntry = new ExpenseEntry(d, t, n, a);    
-    	System.out.println(expEntry.getExpDate());
     	
     	//Error Checking.
     	expErrorLabel.setText("");
@@ -126,7 +123,6 @@ public class BudgetController {
     		recExp.setText(getRecExp(expHistory, recExp));	
         	
         	for(int i = 0; i < expHistory.size(); i++) {
-                System.out.println("date added " + expHistory.get(i).dateToHistory());
         	}
         	
         	//Update expense and balance
@@ -260,8 +256,6 @@ public class BudgetController {
   				  	  expHistory.get(size-3).getEntry(); 
     	}
 		return content;
-	}
-    
-     
+	}  
 }
 
