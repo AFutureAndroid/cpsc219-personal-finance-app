@@ -123,13 +123,13 @@ public class BudgetController {
         	double expValue = Double.parseDouble(a);
         	currentExp = currentExp + expValue;
         	String updExp = Double.toString(currentExp);
-        	double newExp = Double.parseDouble(updExp);
-        	expDisplay.setText(String.format("$%.2f", newExp));
+        	double currExp = Double.parseDouble(updExp);
+        	expDisplay.setText(String.format("$%.2f", currExp));
         	
         	currentBal = currentBal - expValue;
         	String updBal = Double.toString(currentBal);
-        	double newBal = Double.parseDouble(updBal);
-        	balDisplay.setText(String.format("$%.2f" ,newBal));     		
+        	double currBal = Double.parseDouble(updBal);
+        	balDisplay.setText(String.format("$%.2f" ,currBal));     		
     	}
     }
 
