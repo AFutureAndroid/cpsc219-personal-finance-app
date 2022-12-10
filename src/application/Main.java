@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/HomeWindow2.fxml"));
+			VBox root = loader.load(new FileInputStream("src/application/HomeWindow.fxml"));
 			BudgetController controller = (BudgetController)loader.getController();
 			controller.mainStage = primaryStage;
 			
