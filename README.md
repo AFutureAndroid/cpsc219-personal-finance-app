@@ -3,6 +3,7 @@
 
 - [About the Project](#star2-about-the-project)
   * [Overview](#space_invader-overview)
+  * [UML Diagram](#dart-diagram)
 - [Credit](#handshake-contact)
 - [Acknowledgements & References](#gem-acknowledgements-&-references)
 
@@ -22,6 +23,11 @@ This is a perosnal budget application that can mainly records expenses and give 
 - Order expense entries by chronological order, ascending or descending 
 - Display summary results 
 
+<!-- UML Diagram -->
+### :dart: UML Diagram
+<div align="center"> 
+  <img src = "https://user-images.githubusercontent.com/113079584/206877855-13074a88-7c1c-446d-8d79-7ac12d1b0d9a.png" width=70% height=70%>
+</div>
 
 
 <!-- Acknowledgments & References -->
