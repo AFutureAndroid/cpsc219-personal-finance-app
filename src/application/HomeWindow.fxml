@@ -151,7 +151,7 @@
                <children>
                   <Label text="Recent Expenses">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="10.0" />
@@ -178,22 +178,44 @@
                <children>
                   <Label text="Summary">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
+                  <HBox>
+                  	<children>
+                  	  <Label text="Average / Day   "/>                      
+                  	  <Label fx:id = "avgExp" text="\$ 0">
+                  	    <font>
+                          <Font name="System Bold" size="12.0" />
+                        </font>
+                      </Label>
+                  	</children>
+                  </HBox>
+                   <HBox>
+                  	<children>
+                  	  <Label text="Highest  / Day   "/>                      
+                  	  <Label fx:id = "maxExp" text="\$ 0">
+                  	    <font>
+                          <Font name="System Bold" size="12.0" />
+                        </font>
+                      </Label>
+                  	</children>
+                  </HBox>
+                   <HBox>
+                  	<children>
+                  	  <Label text="Lowest   / Day   "/>                      
+                  	  <Label fx:id = "minExp" text="\$ 0">
+                  	    <font>
+                          <Font name="System Bold" size="12.0" />
+                        </font>
+                      </Label>
+                  	</children>
+                  </HBox>
                   <PieChart>
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
-                  </PieChart>
-                  <LineChart prefHeight="150.0" prefWidth="281.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </LineChart>
+                  </PieChart> 
                </children>
             </VBox>
          </children>

@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
  *Generates strings for entry fields and includes getter and
  *setter methods.
  */
-
 public class ExpenseEntry {
 	private LocalDate expDate;
 	private String expType;
@@ -104,10 +103,15 @@ public class ExpenseEntry {
 		this.expType = expType;
 	}	
 	
+	/**
+	 * Sets the note content for the expense to given string.
+	 * 
+	 * @param expNote Value the expense will be set to.
+	 */
 	public String getExpNote() {
 		return expNote;
 	}
-
+	
 	/**
 	 * Sets the note for the expense to given string.
 	 * @param expNote Note you want add to expense.
@@ -115,11 +119,16 @@ public class ExpenseEntry {
 	public void setExpNote(String expNote) {
 		this.expNote = expNote;
 	}
-
+	
+	/**
+	 * Sets the money value for the expense to given string.
+	 * 
+	 * @param expAmount Value the expense will be set to.
+	 */
 	public String getExpAmount() {
 		return expAmount;
 	}
-
+	
 	/**
 	 * Sets the money value for the expense to given string.
 	 * 

@@ -18,9 +18,9 @@ public class Expense {
 	}
 	
 	/**
-	 * Getter for the expense value.
-	 * 
-	 * @return Value of the expense.
+	 * Constructs expense with string given.
+	 *
+	 * @param expValue Value of the expense.
 	 */
 	public String getExpense() {
 		return expValue;

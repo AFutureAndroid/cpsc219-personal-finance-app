@@ -9,6 +9,10 @@ import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -59,10 +63,19 @@ public class BudgetController {
     private Label expErrorLabel;
     
     @FXML
+    private Label avgExp;
+    
+    @FXML
+    private Label maxExp;
+    
+    @FXML
+    private Label minExp;
+    
+    @FXML
     private DatePicker expDate;
     
     private ExpenseEntry expEntry;
-    
+  
     private ArrayList<ExpenseEntry> expHistory;
     
     private double currentExp = 0.0;
@@ -113,7 +126,6 @@ public class BudgetController {
     	String a = expAmount.getText();
     	
     	expEntry = new ExpenseEntry(d, t, n, a);    
-    	System.out.println(expEntry.getExpDate());
     	
     	//Error Checking.
     	expErrorLabel.setText("");
@@ -128,20 +140,28 @@ public class BudgetController {
     		expHistory.add(expEntry);
     		recExp.setText(getRecExp(expHistory, recExp));	
         	
-        	for(int i = 0; i < expHistory.size(); i++) {
-                System.out.println("date added " + expHistory.get(i).dateToHistory());
-        	}
-        	
         	//Update expense and balance
         	double expValue = Double.parseDouble(a);
         	currentExp = currentExp + expValue;
         	String updExp = Double.toString(currentExp);
-        	expDisplay.setText(updExp);
+        	double newExp = Double.parseDouble(updExp);
+        	expDisplay.setText(String.format("$%.2f", newExp));
         	
         	currentBal = currentBal - currentExp;
         	String updBal = Double.toString(currentBal);
-        	balDisplay.setText(updBal);     		
+        	double newBal = Double.parseDouble(updBal);
+        	balDisplay.setText(String.format("$%.2f", newBal));     	  	
     	}
+    	SummaryCalculation summary = new SummaryCalculation(expHistory);
+    	double avg = summary.getAvgExpPerDay();
+    	double max = summary.getMaxExp();
+    	double min = summary.getMinExp();
+    	
+    	avgExp.setText(String.format("$%.2f", avg));
+    	maxExp.setText(String.format("$%.2f", max));
+    	minExp.setText(String.format("$%.2f", min));
+
+
     }
 
     /**
@@ -212,6 +232,12 @@ public class BudgetController {
     	mainStage.setScene(expHistoryScene);
     }
 	
+	@FXML
+	public void updateSummary() {
+		
+		
+	}
+	
 	
 	public void recAscendOrder(ActionEvent ascend) {
 		Collections.sort(expHistory, new SortByTime().reversed());
@@ -262,6 +288,8 @@ public class BudgetController {
     	}
 		return content;
 	}
+    
+    
     
      
 }
