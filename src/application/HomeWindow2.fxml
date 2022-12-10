@@ -48,7 +48,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="bdgDisplay" text="\$ 0" textFill="#51da39">
+                  <Label fx:id="bdgDisplay" text="\$ 0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -76,7 +76,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="balDisplay" text="\$ 0 ">
+                  <Label fx:id="balDisplay" text="\$ 0" textFill="#51da39">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

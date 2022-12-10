@@ -3,10 +3,7 @@ package application;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -86,8 +83,8 @@ public class BudgetController {
     	
     	double bdgValue = Double.parseDouble(bdgEntered);
     	currentBal = Double.parseDouble(bdgEntered);
-    	bdgDisplay.setText(String.format("$%.1f", bdgValue));
-    	balDisplay.setText(String.format("$%.1f", currentBal));
+    	bdgDisplay.setText(String.format("$%.2f", bdgValue));
+    	balDisplay.setText(String.format("$%.2f", currentBal));
     	
     	expHistory = new ArrayList<ExpenseEntry>();
     	system.setText("Expense History created");
@@ -136,11 +133,13 @@ public class BudgetController {
         	double expValue = Double.parseDouble(a);
         	currentExp = currentExp + expValue;
         	String updExp = Double.toString(currentExp);
-        	expDisplay.setText(updExp);
+        	double newExp = Double.parseDouble(updExp);
+        	expDisplay.setText(String.format("$%.2f", newExp));
         	
-        	currentBal = currentBal - currentExp;
+        	currentBal = currentBal - expValue;
         	String updBal = Double.toString(currentBal);
-        	balDisplay.setText(updBal);     		
+        	double newBal = Double.parseDouble(updBal);
+        	balDisplay.setText(String.format("$%.2f", newBal));     		
     	}
     }
 
