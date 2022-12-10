@@ -32,7 +32,9 @@ public class Expense {
 			index++;
 		}
 		
-		if (validValue) {
+		if(valueAsString.isBlank() || valueAsString.isEmpty()) return "";
+		
+		if(validValue) {
 			expValue = valueAsString;
 		}
 		return errorMessage;

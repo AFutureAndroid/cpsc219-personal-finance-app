@@ -46,7 +46,7 @@ public class BudgetController {
     private Label system;
     
     @FXML
-    private Label expAdded;
+    private Label recExp;
     
     @FXML
     private Label bdgErrorLabel;
@@ -67,7 +67,7 @@ public class BudgetController {
     
     
     @FXML
-    void enterBudget(ActionEvent event) {  	    	
+    private void enterBudget(ActionEvent event) {  	    	
     	bdgErrorLabel.setText("");
     	
     	//Error Checking
@@ -88,7 +88,7 @@ public class BudgetController {
     
     
     @FXML
-    void addExpense(ActionEvent addExpEvent) {
+    private void addExpense(ActionEvent addExpEvent) {
     	int year = expDate.getValue().getYear();
     	int month = expDate.getValue().getMonthValue();
     	int day = expDate.getValue().getDayOfMonth();
@@ -110,9 +110,9 @@ public class BudgetController {
     	if(add == false) {
         	expErrorLabel.setText(exp.setValue(expEntered));
     	}
-    	if(add == true) {
-        	expAdded.setText("Expense added:\n" + expEntry.getEntry());	
-        	expHistory.add(expEntry);
+    	if(add == true) { 
+    		expHistory.add(expEntry);
+    		recExp.setText(getRecExp(expHistory, recExp));	
         	
         	for(int i = 0; i < expHistory.size(); i++) {
                 System.out.println("date added " + expHistory.get(i).dateToHistory());
@@ -129,14 +129,14 @@ public class BudgetController {
         	balDisplay.setText(updBal);     		
     	}
     }
-    
-    
-    @FXML
+
+
+	@FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
     	Scene mainScene = mainStage.getScene();
     	
     	VBox expHistoryBox = new VBox();
-    	expHistoryBox.setPrefSize(350, 100);
+    	expHistoryBox.setPrefSize(350, 150);
 
     		Label expHistoryLabel = new Label("-------------------------Expense History-------------------------");
     		expHistoryBox.getChildren().add(expHistoryLabel);
@@ -168,9 +168,9 @@ public class BudgetController {
     		expHistoryBox.getChildren().add(separation2);
     	
     	int i = 0;
-    	int numOfEntries = expHistory.size();  	
+    	int numOfEntries = expHistory.size(); 
+    	
     	while(i < numOfEntries) {        
-    		
     		Collections.sort(expHistory, new SortByTime());
     		
     		Label date = new Label(expHistory.get(i).dateToHistory());
@@ -181,17 +181,62 @@ public class BudgetController {
     		amountCol.getChildren().add(amount);
     		Label note = new Label(expHistory.get(i).noteToHistory());
     		noteCol.getChildren().add(note);
-   	
+
         	i++;
     	}
     	
     	Button returnButton = new Button("Go Back");
-    	returnButton.setOnAction(returnEvent -> mainStage.setScene(mainScene));   	
+    	returnButton.setOnAction(returnEvent -> mainStage.setScene(mainScene));     	
     	
     	expHistoryBox.getChildren().add(returnButton);
     	Scene expHistoryScene = new Scene(expHistoryBox);
     	mainStage.setScene(expHistoryScene);
     }
-
+	
+	
+	public void recAscendOrder(ActionEvent ascend) {
+		Collections.sort(expHistory, new SortByTime().reversed());
+		recExp.setText(getRecExp(expHistory, recExp));	
+	}
+	
+	public void recdescendOrder(ActionEvent descend) {
+		Collections.sort(expHistory, new SortByTime());
+		recExp.setText(getRecExp(expHistory, recExp));	
+	}
+	
+    
+    public void clearHistory(ActionEvent clearHistoryEvent) {
+    	recExp.setText("");	
+    	expHistory.clear();
+    	
+    }
+    
+    private String getRecExp(ArrayList<ExpenseEntry> expHistory, Label recExp) {
+    	int size = expHistory.size();
+    	String content = "";
+    	if(size == 1) {
+    		content = expHistory.get(0).getEntry();
+    		return content;
+    	}
+    	else if(size == 2) {
+    		content = expHistory.get(0).getEntry() + "\n" +
+    				  expHistory.get(1).getEntry();
+    		return content;
+    	}
+    	else if(size == 3) {
+    		content = expHistory.get(0).getEntry() + "\n" +
+    				  expHistory.get(1).getEntry() + "\n" +
+    				  expHistory.get(2).getEntry();
+    		return content;
+    	}
+    	else {
+    		content = expHistory.get(size-1).getEntry() + "\n" +
+  				  	  expHistory.get(size-2).getEntry() + "\n" +
+  				  	  expHistory.get(size-3).getEntry(); 
+    	}
+		return content;
+	}
+    
+     
 }
 
