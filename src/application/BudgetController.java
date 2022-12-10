@@ -18,6 +18,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This is the controller class for the budgeting application.
+ * Works with user inputs, and changes the scene when required.
+ */
 public class BudgetController {
 	Stage mainStage;
 
@@ -65,7 +69,12 @@ public class BudgetController {
     
     private double currentBal = 0.0;
     
-    
+    /**
+     * Handles user input for budget value, sets error labels
+     * and displays. Also initiates the expense history.
+     * 
+     * @param event User clicks the enter button to trigger event.
+     */
     @FXML
     private void enterBudget(ActionEvent event) {  	    	
     	bdgErrorLabel.setText("");
@@ -86,7 +95,12 @@ public class BudgetController {
         
     }
     
-    
+    /**
+     * Works with user input to add expenses and update displays.
+     * New expense is added to the expense history.
+     * 
+     * @param addExpEvent User clicks the add expense button to trigger.
+     */
     @FXML
     private void addExpense(ActionEvent addExpEvent) {
     	int year = expDate.getValue().getYear();
@@ -130,7 +144,12 @@ public class BudgetController {
     	}
     }
 
-
+    /**
+     * Displays the history in a new window. Also creates return button,
+     * to return to the main scene.
+     * 
+     * @param expHistoryEvent User clicks expense history to trigger event.
+     */
 	@FXML
     void getExpHistory(ActionEvent expHistoryEvent) {
     	Scene mainScene = mainStage.getScene();
@@ -211,6 +230,13 @@ public class BudgetController {
     	
     }
     
+    /**
+     * Finds string with most recent expense in history.
+     * 
+     * @param expHistory ArrayList history of expenses.
+     * @param recExp Label will be updated with most recent expense.
+     * @return String that is the most recent expense.
+     */
     private String getRecExp(ArrayList<ExpenseEntry> expHistory, Label recExp) {
     	int size = expHistory.size();
     	String content = "";
