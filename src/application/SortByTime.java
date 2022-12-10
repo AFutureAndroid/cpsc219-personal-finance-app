@@ -2,6 +2,10 @@ package application;
 
 import java.util.Comparator;
 
+/**
+ * Compares two expense entries based on their dates.
+ * Can be used to sort entries by date.
+ */
 public class SortByTime implements Comparator <ExpenseEntry> {
 	
 	@Override
